@@ -1,0 +1,75 @@
+{
+  "variables": {
+    "mesos_version": "0.19.0",
+    "deimos_version": "0.4.0",
+    "mesos_pkg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos_0.19.0~ubuntu14.04%2B1_amd64.deb",
+    "mesos_egg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos-0.19.0_rc2-py2.7-linux-x86_64.egg",
+    "docker_executor_url": "https://raw.githubusercontent.com/mesosphere/mesos-docker/7ae10583a917d933ef698eddeaf769fb62483e77/bin/mesos-docker"
+  },
+
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "us-west-2",
+      "source_ami": "ami-9fa0d9af",
+      "instance_type": "m1.small",
+      "ssh_username": "ubuntu",
+      "ami_name": "thefactory-mesos-{{isotime | clean_ami_name}}",
+      "ami_description": "Ubuntu 14.04 LTS with Docker, Runit, and Mesos",
+      "ami_regions": ["us-east-1", "us-west-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "sa-east-1", "eu-west-1"],
+      "ami_groups": "all",
+      "tags": {
+        "os:distribution": "Ubuntu",
+        "os:release": "14.04 LTS",
+        "mesos:version": "{{user `mesos_version`}}"
+      }
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "# Install Mesos from package",
+        "sudo apt-get install -y wget curl default-jre",
+        "sudo wget -q -O /tmp/mesos.deb {{user `mesos_pkg_url`}}",
+        "sudo dpkg -i /tmp/mesos.deb",
+        "sudo rm /tmp/mesos.deb",
+
+        "# Remove package-provided init scripts",
+        "sudo update-rc.d mesos-master disable",
+        "sudo update-rc.d mesos-slave disable",
+        "sudo rm -f /etc/init.d/mesos-master /etc/init.d/mesos-slave",
+        "sudo rm -f /etc/init/mesos-master.conf /etc/init/mesos-slave.conf",
+        
+        "# Install Mesos Python bindings",
+        "sudo wget -q -O /tmp/mesos.egg {{user `mesos_egg_url`}}",
+        "sudo easy_install /tmp/mesos.egg",
+        "sudo rm /tmp/mesos.egg",
+
+        "# Install Docker Executor",
+        "sudo mkdir -p /var/lib/mesos/executors",
+        "sudo wget -q -O /var/lib/mesos/executors/docker {{user `docker_executor_url`}}",
+        "sudo chmod +x /var/lib/mesos/executors/docker"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "# Create Mesos runit services",
+        "runit-service create mesos-master /usr/local/sbin/mesos-master --log_dir=/var/log/mesos --work_dir=/var/lib/mesos",
+        "runit-service create mesos-slave /usr/local/sbin/mesos-slave --log_dir=/var/log/mesos",
+        "sudo sh -c 'echo \"/usr/lib/jvm/default-java/jre/lib/amd64:/usr/lib/jvm/default-java/jre/lib/amd64/server\" > /etc/sv/mesos-master/env/LD_LIBRARY_PATH'",
+        "sudo sh -c 'echo \"/usr/lib/jvm/default-java/jre/lib/amd64:/usr/lib/jvm/default-java/jre/lib/amd64/server\" > /etc/sv/mesos-slave/env/LD_LIBRARY_PATH'"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "# Install (but don't enable) Deimos external containerizer",
+        "# sudo pip install git+git://github.com/mesosphere/deimos.git@{{user `deimos_version`}}",
+        "sudo pip install deimos=={{user `deimos_version`}}"
+      ]
+    }
+  ]
+}
