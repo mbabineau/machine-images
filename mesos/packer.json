@@ -11,7 +11,7 @@
     {
       "type": "amazon-ebs",
       "region": "us-west-2",
-      "source_ami": "ami-9fa0d9af",
+      "source_ami": "ami-71054341",
       "instance_type": "m1.small",
       "ssh_username": "ubuntu",
       "ami_name": "thefactory-mesos-{{isotime | clean_ami_name}}",
@@ -53,7 +53,7 @@
         "sudo chmod +x /var/lib/mesos/executors/docker",
 
         "# Set a TTL for JVM DNS cache",
-        "sudo grep '^networkaddress.cache.ttl=' /etc/java-7-openjdk/security/java.security || echo 'networkaddress.cache.ttl=60' >> /etc/java-7-openjdk/security/java.security"
+        "sudo sh -c \"grep '^networkaddress.cache.ttl=' /etc/java-7-openjdk/security/java.security || echo 'networkaddress.cache.ttl=60' >> /etc/java-7-openjdk/security/java.security\""
       ]
     },
     {
