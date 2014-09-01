@@ -1,6 +1,6 @@
 {
   "variables": {
-    "docker_version": "1.1.1",
+    "docker_version": "1.2.0",
     "cfn_tools_url": "https://s3.amazonaws.com/cloudformation-cli/AWSCloudFormation-cli.zip"
   },
 
