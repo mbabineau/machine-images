@@ -50,7 +50,10 @@
         "# Install Docker Executor",
         "sudo mkdir -p /var/lib/mesos/executors",
         "sudo wget -q -O /var/lib/mesos/executors/docker {{user `docker_executor_url`}}",
-        "sudo chmod +x /var/lib/mesos/executors/docker"
+        "sudo chmod +x /var/lib/mesos/executors/docker",
+
+        "# Set a TTL for JVM DNS cache",
+        "sudo grep '^networkaddress.cache.ttl=' /etc/java-7-openjdk/security/java.security || echo 'networkaddress.cache.ttl=60' >> /etc/java-7-openjdk/security/java.security"
       ]
     },
     {
