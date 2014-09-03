@@ -1,17 +1,15 @@
 {
   "variables": {
-    "mesos_version": "0.19.0",
-    "deimos_version": "0.4.0",
-    "mesos_pkg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos_0.19.0~ubuntu14.04%2B1_amd64.deb",
-    "mesos_egg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos-0.19.0_rc2-py2.7-linux-x86_64.egg",
-    "docker_executor_url": "https://raw.githubusercontent.com/mesosphere/mesos-docker/7ae10583a917d933ef698eddeaf769fb62483e77/bin/mesos-docker"
+    "mesos_version": "0.20.0",
+    "mesos_pkg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos_0.20.0-1.0.ubuntu1404_amd64.deb",
+    "mesos_egg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos-0.20.0-py2.7-linux-x86_64.egg"
   },
 
   "builders": [
     {
       "type": "amazon-ebs",
       "region": "us-west-2",
-      "source_ami": "ami-71054341",
+      "source_ami": "ami-a75d1b97",
       "instance_type": "m1.small",
       "ssh_username": "ubuntu",
       "ami_name": "thefactory-mesos-{{isotime | clean_ami_name}}",
@@ -47,11 +45,6 @@
         "sudo easy_install /tmp/mesos.egg",
         "sudo rm /tmp/mesos.egg",
 
-        "# Install Docker Executor",
-        "sudo mkdir -p /var/lib/mesos/executors",
-        "sudo wget -q -O /var/lib/mesos/executors/docker {{user `docker_executor_url`}}",
-        "sudo chmod +x /var/lib/mesos/executors/docker",
-
         "# Set a TTL for JVM DNS cache",
         "sudo sh -c \"grep '^networkaddress.cache.ttl=' /etc/java-7-openjdk/security/java.security || echo 'networkaddress.cache.ttl=60' >> /etc/java-7-openjdk/security/java.security\""
       ]
@@ -61,17 +54,9 @@
       "inline": [
         "# Create Mesos runit services",
         "runit-service create mesos-master /usr/local/sbin/mesos-master --log_dir=/var/log/mesos --work_dir=/var/lib/mesos",
-        "runit-service create mesos-slave /usr/local/sbin/mesos-slave --log_dir=/var/log/mesos",
+        "runit-service create mesos-slave /usr/local/sbin/mesos-slave --log_dir=/var/log/mesos --containerizers=docker,mesos",
         "sudo sh -c 'echo \"/usr/lib/jvm/default-java/jre/lib/amd64:/usr/lib/jvm/default-java/jre/lib/amd64/server\" > /etc/sv/mesos-master/env/LD_LIBRARY_PATH'",
         "sudo sh -c 'echo \"/usr/lib/jvm/default-java/jre/lib/amd64:/usr/lib/jvm/default-java/jre/lib/amd64/server\" > /etc/sv/mesos-slave/env/LD_LIBRARY_PATH'"
-      ]
-    },
-    {
-      "type": "shell",
-      "inline": [
-        "# Install (but don't enable) Deimos external containerizer",
-        "# sudo pip install git+git://github.com/mesosphere/deimos.git@{{user `deimos_version`}}",
-        "sudo pip install deimos=={{user `deimos_version`}}"
       ]
     }
   ]
