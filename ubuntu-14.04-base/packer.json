@@ -1,14 +1,14 @@
 {
   "variables": {
     "docker_version": "1.2.0",
-    "cfn_tools_url": "https://s3.amazonaws.com/cloudformation-cli/AWSCloudFormation-cli.zip"
+    "cfn_tools_url": "https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz"
   },
 
   "builders": [
     {
       "type": "amazon-ebs",
       "region": "us-west-2",
-      "source_ami": "ami-6ac2a85a",
+      "source_ami": "ami-179add27",
       "instance_type": "m1.small",
       "ssh_username": "ubuntu",
       "ami_name": "thefactory-ubuntu-14.04-base-{{isotime | clean_ami_name}}",
