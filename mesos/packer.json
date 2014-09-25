@@ -1,15 +1,15 @@
 {
   "variables": {
-    "mesos_version": "0.20.0",
-    "mesos_pkg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos_0.20.0-1.0.ubuntu1404_amd64.deb",
-    "mesos_egg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos-0.20.0-py2.7-linux-x86_64.egg"
+    "mesos_version": "0.20.1",
+    "mesos_pkg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos_0.20.1-1.0.ubuntu1404_amd64.deb",
+    "mesos_egg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos-0.20.1-py2.7-linux-x86_64.egg"
   },
 
   "builders": [
     {
       "type": "amazon-ebs",
       "region": "us-west-2",
-      "source_ami": "ami-a75d1b97",
+      "source_ami": "ami-3fb1f20f",
       "instance_type": "m1.small",
       "ssh_username": "ubuntu",
       "ami_name": "thefactory-mesos-{{isotime | clean_ami_name}}",
