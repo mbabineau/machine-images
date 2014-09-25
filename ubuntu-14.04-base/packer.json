@@ -8,7 +8,7 @@
     {
       "type": "amazon-ebs",
       "region": "us-west-2",
-      "source_ami": "ami-179add27",
+      "source_ami": "ami-2799da17",
       "instance_type": "m1.small",
       "ssh_username": "ubuntu",
       "ami_name": "thefactory-ubuntu-14.04-base-{{isotime | clean_ami_name}}",
@@ -30,6 +30,10 @@
         "# Wait before running the update. If we're too quick, we'll only get a partial package list",
         "sleep 10",
         "sudo apt-get update",
+
+        "# Upgrade bash to fix CVE-2014-6271 until it's part of the base AMI",
+        "sudo apt-get -y install bash",
+
         "sudo apt-get -y install python-setuptools ntp",
         "sudo easy_install pip"
       ]
