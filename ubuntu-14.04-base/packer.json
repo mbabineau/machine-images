@@ -91,6 +91,17 @@
     },
     {
       "type": "file",
+      "source": "include/docker.logrotate",
+      "destination": "/tmp/docker.logrotate"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo mv /tmp/docker.logrotate /etc/logrotate.d/docker"
+      ]
+    },
+    {
+      "type": "file",
       "source": "include/runit-service",
       "destination": "/tmp/runit-service"
     },

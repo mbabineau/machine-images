@@ -9,7 +9,7 @@
     {
       "type": "amazon-ebs",
       "region": "us-west-2",
-      "source_ami": "ami-3fb1f20f",
+      "source_ami": "ami-836429b3",
       "instance_type": "m1.small",
       "ssh_username": "ubuntu",
       "ami_name": "thefactory-mesos-{{isotime | clean_ami_name}}",
