@@ -1,16 +1,16 @@
 {
   "variables": {
-    "mesos_version": "0.20.1",
-    "mesos_pkg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos_0.20.1-1.0.ubuntu1404_amd64.deb",
-    "mesos_egg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos-0.20.1-py2.7-linux-x86_64.egg"
+    "mesos_version": "0.21.0",
+    "mesos_pkg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos_0.21.0-1.0.ubuntu1404_amd64.deb",
+    "mesos_egg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos-0.21.0-py2.7-linux-x86_64.egg"
   },
 
   "builders": [
     {
       "type": "amazon-ebs",
       "region": "us-west-2",
-      "source_ami": "ami-836429b3",
-      "instance_type": "m1.small",
+      "source_ami": "ami-c7adfbf7",
+      "instance_type": "m3.medium",
       "ssh_username": "ubuntu",
       "ami_name": "thefactory-mesos-{{isotime | clean_ami_name}}",
       "ami_description": "Ubuntu 14.04 LTS with Docker, Runit, and Mesos",
