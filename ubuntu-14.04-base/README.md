@@ -1,13 +1,13 @@
 Ubuntu 14.04 LTS with Docker and Runit installed.
 
-Latest AMIs (2014-12-09):
+Latest HVM AMIs (2015-01-29):
 ```
-ap-northeast-1: ami-845d5085
-ap-southeast-1: ami-4bfed219
-ap-southeast-2: ami-bd690187
-eu-west-1: ami-a80eb2df
-sa-east-1: ami-f578c8e8
-us-east-1: ami-56e5813e
-us-west-1: ami-67bdae22
-us-west-2: ami-c7adfbf7
+ap-northeast-1: ami-7a98817b
+ap-southeast-1: ami-787b512a
+ap-southeast-2: ami-c35c28f9
+eu-west-1: ami-1566ea62
+sa-east-1: ami-bd6ad6a0
+us-east-1: ami-86fabdee
+us-west-1: ami-bc4951f9
+us-west-2: ami-49411979
 ```

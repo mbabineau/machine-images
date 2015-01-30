@@ -12,7 +12,7 @@
       "source_ami": "ami-c7adfbf7",
       "instance_type": "m3.medium",
       "ssh_username": "ubuntu",
-      "ami_name": "thefactory-mesos-{{isotime | clean_ami_name}}",
+      "ami_name": "mbabineau-mesos-{{isotime | clean_ami_name}}",
       "ami_description": "Ubuntu 14.04 LTS with Docker, Runit, and Mesos",
       "ami_regions": ["us-east-1", "us-west-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "sa-east-1", "eu-west-1"],
       "ami_groups": "all",
