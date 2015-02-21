@@ -1,20 +1,20 @@
 {
   "variables": {
-    "mesos_version": "0.21.0",
-    "mesos_pkg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos_0.21.0-1.0.ubuntu1404_amd64.deb",
-    "mesos_egg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos-0.21.0-py2.7-linux-x86_64.egg"
+    "mesos_version": "0.21.1",
+    "mesos_pkg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos_0.21.1-1.1.ubuntu1404_amd64.deb",
+    "mesos_egg_url": "http://downloads.mesosphere.io/master/ubuntu/14.04/mesos-0.21.1-py2.7-linux-x86_64.egg"
   },
 
   "builders": [
     {
       "type": "amazon-ebs",
-      "region": "us-west-2",
-      "source_ami": "ami-c7adfbf7",
-      "instance_type": "m3.medium",
+      "region": "us-west-1",
+      "source_ami": "ami-bc4951f9",
+      "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
       "ami_name": "mbabineau-mesos-{{isotime | clean_ami_name}}",
       "ami_description": "Ubuntu 14.04 LTS with Docker, Runit, and Mesos",
-      "ami_regions": ["us-east-1", "us-west-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "sa-east-1", "eu-west-1"],
+      "ami_regions": ["us-east-1", "us-west-2", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1", "sa-east-1", "eu-west-1"],
       "ami_groups": "all",
       "tags": {
         "os:distribution": "Ubuntu",
@@ -28,6 +28,8 @@
     {
       "type": "shell",
       "inline": [
+        "sudo apt-get update",
+
         "# Install Mesos from package",
         "sudo apt-get install -y wget curl default-jre",
         "sudo wget -q -O /tmp/mesos.deb {{user `mesos_pkg_url`}}",

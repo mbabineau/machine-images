@@ -1,4 +1,4 @@
-Ubuntu 14.04 LTS with Docker and Runit installed.
+Ubuntu 14.04 LTS with Docker 1.4.1 and Runit
 
 Latest HVM AMIs (2015-01-29):
 ```

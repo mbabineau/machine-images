@@ -1,13 +1,12 @@
-Ubuntu 14.04 LTS with Mesos installed.
+Ubuntu 14.04 LTS with Mesos 0.21.1
 
-Latest AMIs (2014-12-09):
+Latest HVM AMIs (2015-02-20):
 ```
-ap-northeast-1: ami-24545925
-ap-southeast-1: ami-67ffd335
-ap-southeast-2: ami-cf6901f5
-eu-west-1: ami-5209b525
-sa-east-1: ami-6979c974
-us-east-1: ami-bae185d2
-us-west-1: ami-adbcafe8
-us-west-2: ami-83abfdb3
+ap-northeast-1: ami-f307e4f3
+ap-southeast-1: ami-b0b682e2
+ap-southeast-2: ami-f74630cd
+eu-west-1: ami-4730a430
+sa-east-1: ami-075fe11a
+us-east-1: ami-4601512e
+us-west-1: ami-fd8b6eb9
 ```
