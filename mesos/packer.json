@@ -9,7 +9,7 @@
     {
       "type": "amazon-ebs",
       "region": "us-west-1",
-      "source_ami": "ami-bc4951f9",
+      "source_ami": "ami-117c9a55",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
       "ami_name": "mbabineau-mesos-{{isotime | clean_ami_name}}",
@@ -31,7 +31,7 @@
         "sudo apt-get update",
 
         "# Install Mesos from package",
-        "sudo apt-get install -y wget curl default-jre",
+        "sudo apt-get install -y wget curl default-jre libsvn1",
         "sudo wget -q -O /tmp/mesos.deb {{user `mesos_pkg_url`}}",
         "sudo dpkg -i /tmp/mesos.deb",
         "sudo rm /tmp/mesos.deb",
@@ -55,8 +55,8 @@
       "type": "shell",
       "inline": [
         "# Create Mesos runit services",
-        "runit-service create mesos-master /usr/local/sbin/mesos-master --log_dir=/var/log/mesos --work_dir=/var/lib/mesos",
-        "runit-service create mesos-slave /usr/local/sbin/mesos-slave --log_dir=/var/log/mesos --containerizers=docker,mesos",
+        "runit-service create mesos-master /usr/sbin/mesos-master --log_dir=/var/log/mesos --work_dir=/var/lib/mesos",
+        "runit-service create mesos-slave /usr/sbin/mesos-slave --log_dir=/var/log/mesos --containerizers=docker,mesos",
         "sudo sh -c 'echo \"/usr/lib/jvm/default-java/jre/lib/amd64:/usr/lib/jvm/default-java/jre/lib/amd64/server\" > /etc/sv/mesos-master/env/LD_LIBRARY_PATH'",
         "sudo sh -c 'echo \"/usr/lib/jvm/default-java/jre/lib/amd64:/usr/lib/jvm/default-java/jre/lib/amd64/server\" > /etc/sv/mesos-slave/env/LD_LIBRARY_PATH'"
       ]

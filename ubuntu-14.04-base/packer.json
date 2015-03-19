@@ -1,6 +1,6 @@
 {
   "variables": {
-    "docker_version": "1.4.1",
+    "docker_version": "1.5.0",
     "cfn_tools_url": "https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz"
   },
 

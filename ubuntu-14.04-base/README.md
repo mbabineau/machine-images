@@ -1,13 +1,13 @@
-Ubuntu 14.04 LTS with Docker 1.4.1 and Runit
+Ubuntu 14.04 LTS with Docker 1.5.0 and Runit
 
-Latest HVM AMIs (2015-01-29):
+Latest HVM AMIs (2015-03-19):
 ```
-ap-northeast-1: ami-7a98817b
-ap-southeast-1: ami-787b512a
-ap-southeast-2: ami-c35c28f9
-eu-west-1: ami-1566ea62
-sa-east-1: ami-bd6ad6a0
-us-east-1: ami-86fabdee
-us-west-1: ami-bc4951f9
-us-west-2: ami-49411979
+ap-northeast-1: ami-3d62953d
+ap-southeast-1: ami-64b88936
+ap-southeast-2: ami-abf48491
+eu-west-1: ami-8be47afc
+sa-east-1: ami-db1fa7c6
+us-east-1: ami-96163afe
+us-west-1: ami-117c9a55
+us-west-2: ami-8d123ebd
 ```
